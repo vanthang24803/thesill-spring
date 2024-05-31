@@ -1,6 +1,8 @@
 package com.example.thesillapi.services;
 
-public interface AuthService {
+import com.example.thesillapi.dtos.auth.RegisterDto;
+import com.example.thesillapi.dtos.message.Response;
 
-    String getHelloWorld();
+public interface AuthService {
+    Response<?> save(RegisterDto registerDto);
 }
