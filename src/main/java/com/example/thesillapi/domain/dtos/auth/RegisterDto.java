@@ -1,4 +1,4 @@
-package com.example.thesillapi.dtos.auth;
+package com.example.thesillapi.domain.dtos.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

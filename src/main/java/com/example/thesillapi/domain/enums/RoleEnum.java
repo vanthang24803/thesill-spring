@@ -1,4 +1,4 @@
-package com.example.thesillapi.enums;
+package com.example.thesillapi.domain.enums;
 
 public enum RoleEnum {
     CUSTOMER,

@@ -1,6 +1,6 @@
-package com.example.thesillapi.entities;
+package com.example.thesillapi.domain.entities;
 
-import com.example.thesillapi.enums.RoleEnum;
+import com.example.thesillapi.domain.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "roles")
-public class Role {
+public class RoleEntity {
     @Id
     @GeneratedValue()
     @Column(name = "id")

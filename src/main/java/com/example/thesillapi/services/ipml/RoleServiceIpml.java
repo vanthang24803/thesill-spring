@@ -1,8 +1,8 @@
 package com.example.thesillapi.services.ipml;
 
-import com.example.thesillapi.dtos.message.Response;
-import com.example.thesillapi.entities.Role;
-import com.example.thesillapi.enums.RoleEnum;
+import com.example.thesillapi.domain.dtos.message.Response;
+import com.example.thesillapi.domain.entities.RoleEntity;
+import com.example.thesillapi.domain.enums.RoleEnum;
 import com.example.thesillapi.repositories.RoleRepository;
 import com.example.thesillapi.services.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class RoleServiceIpml implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Response<List<Role>> createSeedRole() {
+    public Response<List<RoleEntity>> createSeedRole() {
 
         List<String> roles = Arrays.asList(
                 RoleEnum.ADMIN.name(),
@@ -26,25 +26,25 @@ public class RoleServiceIpml implements RoleService {
                 RoleEnum.CUSTOMER.name()
         );
 
-        List<Role> result = new ArrayList<>();
+        List<RoleEntity> result = new ArrayList<>();
 
         for (String roleName : roles) {
-            Role role = this.save(roleName).getMessage();
-            result.add(role);
+            RoleEntity roleEntity = this.save(roleName).getMessage();
+            result.add(roleEntity);
         }
 
         return new Response<>(result);
     }
 
     @Override
-    public Response<Role> save(String name) {
+    public Response<RoleEntity> save(String name) {
 
-        Role role = new Role();
+        RoleEntity roleEntity = new RoleEntity();
 
-        role.setName(RoleEnum.valueOf(name));
+        roleEntity.setName(RoleEnum.valueOf(name));
 
-        roleRepository.save(role);
+        roleRepository.save(roleEntity);
 
-        return new Response<>(role);
+        return new Response<>(roleEntity);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.thesillapi.dtos.message;
+package com.example.thesillapi.domain.dtos.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

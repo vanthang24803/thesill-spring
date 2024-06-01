@@ -1,11 +1,12 @@
 package com.example.thesillapi.controllers;
 
-import com.example.thesillapi.dtos.message.Response;
-import com.example.thesillapi.entities.Role;
+import com.example.thesillapi.domain.dtos.message.Response;
 import com.example.thesillapi.services.RoleService;
+import com.example.thesillapi.domain.entities.RoleEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public class AuthController {
 
     @GetMapping(path = "/roles")
     @ResponseStatus(HttpStatus.OK)
-    public Response<List<Role>> seedRoles() {
-        return roleService.createSeedRole();
+    public ResponseEntity<Response<List<RoleEntity>>> seedRoles() {
+        return new ResponseEntity<>(roleService.createSeedRole(), HttpStatus.OK);
     }
 
 

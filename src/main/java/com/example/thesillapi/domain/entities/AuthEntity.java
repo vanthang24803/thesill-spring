@@ -1,4 +1,4 @@
-package com.example.thesillapi.entities;
+package com.example.thesillapi.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "users")
-public class Auth {
+public class AuthEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, unique = true)
@@ -34,7 +34,11 @@ public class Auth {
     private String avatar;
 
     @ManyToMany()
-    private Set<Role> roles;
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roleEntities;
 
     @CreationTimestamp
     @Column(name = "created_at")
