@@ -11,5 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Response<T> {
-    public  T message;
+    public int status;
+    public T result;
 }

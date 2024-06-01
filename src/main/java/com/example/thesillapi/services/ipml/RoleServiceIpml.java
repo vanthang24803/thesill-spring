@@ -3,14 +3,17 @@ package com.example.thesillapi.services.ipml;
 import com.example.thesillapi.domain.dtos.message.Response;
 import com.example.thesillapi.domain.entities.RoleEntity;
 import com.example.thesillapi.domain.enums.RoleEnum;
+import com.example.thesillapi.exceptions.BadRequestException;
 import com.example.thesillapi.repositories.RoleRepository;
 import com.example.thesillapi.services.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,32 +22,31 @@ public class RoleServiceIpml implements RoleService {
 
     @Override
     public Response<List<RoleEntity>> createSeedRole() {
-
-        List<String> roles = Arrays.asList(
-                RoleEnum.ADMIN.name(),
-                RoleEnum.MANAGER.name(),
-                RoleEnum.CUSTOMER.name()
-        );
-
+        List<RoleEnum> roles = Arrays.asList(RoleEnum.ADMIN, RoleEnum.MANAGER, RoleEnum.CUSTOMER);
         List<RoleEntity> result = new ArrayList<>();
 
-        for (String roleName : roles) {
-            RoleEntity roleEntity = this.save(roleName).getMessage();
+        for (RoleEnum role : roles) {
+            RoleEntity roleEntity = save(role).getResult();
             result.add(roleEntity);
         }
 
-        return new Response<>(result);
+        return new Response<>(HttpStatus.OK.value(), result);
     }
 
     @Override
-    public Response<RoleEntity> save(String name) {
+    public Response<RoleEntity> save(RoleEnum role) {
+        Optional<RoleEntity> existingRoleOpt = roleRepository.findByName(role);
+        if (existingRoleOpt.isPresent()) {
+            throw new BadRequestException("Role already exists");
+        }
+
 
         RoleEntity roleEntity = new RoleEntity();
 
-        roleEntity.setName(RoleEnum.valueOf(name));
+        roleEntity.setName(role);
 
         roleRepository.save(roleEntity);
 
-        return new Response<>(roleEntity);
+        return new Response<>(HttpStatus.OK.value(), roleEntity);
     }
 }
