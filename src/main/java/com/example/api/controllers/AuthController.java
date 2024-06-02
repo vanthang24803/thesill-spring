@@ -4,6 +4,8 @@ import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
 import com.example.api.domain.dtos.auth.UserDto;
 import com.example.api.domain.dtos.message.Response;
+import com.example.api.domain.dtos.token.RefreshTokenDto;
+import com.example.api.domain.dtos.token.TokenResponse;
 import com.example.api.services.RoleService;
 import com.example.api.domain.entities.RoleEntity;
 import com.example.api.services.UserService;
@@ -13,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -39,8 +40,16 @@ public class AuthController {
     }
 
     @PostMapping(path = "login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<Response<TokenResponse>> login(@RequestBody @Valid LoginDto loginDto) {
         return new ResponseEntity<>(userService.login(loginDto), HttpStatus.OK);
     }
+
+    @PostMapping(path = "refresh")
+    public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenDto token){
+        return  new ResponseEntity<>(userService.refreshToken(token), HttpStatus.OK);
+    }
+
+
+
 
 }
