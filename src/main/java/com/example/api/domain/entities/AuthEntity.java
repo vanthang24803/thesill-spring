@@ -1,12 +1,14 @@
 package com.example.api.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,8 +17,8 @@ import java.util.UUID;
 public class AuthEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true)
-    private UUID Id;
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "first_name", nullable = false, length = 255)
     private String firstName;
@@ -33,12 +35,16 @@ public class AuthEntity {
     @Column(name = "avatar", columnDefinition = "TEXT", nullable = true)
     private String avatar;
 
-    @ManyToMany()
+    @Column(name = "verify_email", nullable = false)
+    private Boolean verify = false;
+
+    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roleEntities;
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RoleEntity> roles = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -48,3 +54,4 @@ public class AuthEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
+
