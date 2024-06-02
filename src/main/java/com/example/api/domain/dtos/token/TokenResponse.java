@@ -1,5 +1,6 @@
 package com.example.api.domain.dtos.token;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TokenResponse {
 
-    public String refresh_token;
+    @JsonProperty("refresh_token")
+    public String refreshToken;
 
-    public String access_token;
+    @JsonProperty("access_token")
+    public String accessToken;
 }

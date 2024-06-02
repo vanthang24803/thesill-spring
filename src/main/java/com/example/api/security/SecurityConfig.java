@@ -1,6 +1,5 @@
 package com.example.api.security;
 
-import com.example.api.domain.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,6 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers(HttpMethod.GET, "api/auth/roles").permitAll()
                                 .requestMatchers(HttpMethod.POST, "api/auth/register").permitAll()
-//                                .anyRequest().hasRole(RoleEnum.CUSTOMER.name())
                 )
                 .httpBasic(Customizer.withDefaults());
 
@@ -49,6 +47,5 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

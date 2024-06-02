@@ -1,10 +1,12 @@
 package com.example.api.controllers;
 
+import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
+import com.example.api.domain.dtos.auth.UserDto;
 import com.example.api.domain.dtos.message.Response;
-import com.example.api.security.AuthService;
 import com.example.api.services.RoleService;
 import com.example.api.domain.entities.RoleEntity;
+import com.example.api.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,8 @@ import java.util.List;
 public class AuthController {
 
     private final RoleService roleService;
-    private  final AuthService authService;
+    private final UserService userService;
+
 
     @GetMapping(path = "/roles")
     @ResponseStatus(HttpStatus.OK)
@@ -31,8 +34,13 @@ public class AuthController {
     }
 
     @PostMapping(path = "register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterDto register) {
-        return new ResponseEntity<>(authService.register(register), HttpStatus.CREATED);
+    public ResponseEntity<Response<UserDto>> register(@RequestBody @Valid RegisterDto register) {
+        return new ResponseEntity<>(userService.register(register), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginDto loginDto) {
+        return new ResponseEntity<>(userService.login(loginDto), HttpStatus.OK);
     }
 
 }
