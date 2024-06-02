@@ -13,7 +13,8 @@ public class ForbiddenException extends RuntimeException {
 
     public ForbiddenException() {
         super();
-        this.apiError = new ApiError( HttpStatus.FORBIDDEN.value(), "Forbidden", LocalDateTime.now());
+        this.apiError = new ApiError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase(),
+                LocalDateTime.now());
     }
 
 }

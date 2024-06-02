@@ -14,7 +14,7 @@ public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException() {
         super();
         this.apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(),
-                "Unauthorized", LocalDateTime.now());
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(), LocalDateTime.now());
 
     }
 

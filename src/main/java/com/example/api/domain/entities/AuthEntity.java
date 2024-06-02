@@ -38,7 +38,7 @@ public class AuthEntity {
     @Column(name = "verify_email", nullable = false)
     private Boolean verify = false;
 
-    @Column(name = "refresh_token", nullable = true)
+    @Column(name = "refresh_token", nullable = true,  columnDefinition = "TEXT")
     private String refreshToken;
 
     @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)

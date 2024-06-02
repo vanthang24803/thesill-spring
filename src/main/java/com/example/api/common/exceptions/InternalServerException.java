@@ -13,7 +13,7 @@ public class InternalServerException extends RuntimeException {
 
     public InternalServerException() {
         super();
-        this.apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server"
+        this.apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
                 , LocalDateTime.now());
     }
 
