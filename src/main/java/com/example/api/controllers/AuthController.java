@@ -14,10 +14,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -28,8 +28,8 @@ public class AuthController {
     private final RoleService roleService;
     private final UserService userService;
 
-
     @GetMapping(path = "/roles")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Response<List<RoleEntity>>> seedRoles() {
         return new ResponseEntity<>(roleService.createSeedRole(), HttpStatus.OK);

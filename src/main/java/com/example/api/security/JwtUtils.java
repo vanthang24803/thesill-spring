@@ -20,8 +20,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class JwtGenerator {
-
+public class JwtUtils {
     private static final SecretKey secretKey =
             Keys.hmacShaKeyFor(System.getenv("SECRET_KEY").getBytes(StandardCharsets.UTF_8));
 

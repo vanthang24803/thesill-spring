@@ -20,7 +20,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtGenerator jwtGenerator;
+    private final JwtUtils jwtUtils;
     private final AuthService authService;
 
     @Override
@@ -29,10 +29,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token = jwtGenerator.getToken(request);
+        String token = jwtUtils.getToken(request);
 
-        if (StringUtils.hasText(token) && jwtGenerator.validateToken(token)){
-                Claims decode = jwtGenerator.decodeToken(token);
+        if (StringUtils.hasText(token) && jwtUtils.validateToken(token)){
+                Claims decode = jwtUtils.decodeToken(token);
 
                 String email = decode.getSubject();
 

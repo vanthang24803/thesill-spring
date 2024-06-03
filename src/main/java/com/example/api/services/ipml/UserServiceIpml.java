@@ -14,7 +14,7 @@ import com.example.api.domain.entities.RoleEntity;
 import com.example.api.domain.enums.RoleEnum;
 import com.example.api.repositories.AuthRepository;
 import com.example.api.repositories.RoleRepository;
-import com.example.api.security.JwtGenerator;
+import com.example.api.security.JwtUtils;
 import com.example.api.services.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class UserServiceIpml implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final Mapper<AuthEntity, UserDto> userMapper;
     private final AuthenticationManager authenticationManager;
-    private final JwtGenerator jwtGenerator;
+    private final JwtUtils jwtUtils;
 
     @Override
     public Response<UserDto> register(RegisterDto registerDto) {
@@ -84,8 +84,8 @@ public class UserServiceIpml implements UserService {
 
         UserDto claim = userMapper.mapTo(account);
 
-        String accessToken = jwtGenerator.generateAccessToken(claim);
-        String refreshToken = jwtGenerator.generateRefreshToken(claim);
+        String accessToken = jwtUtils.generateAccessToken(claim);
+        String refreshToken = jwtUtils.generateRefreshToken(claim);
 
         user.setRefreshToken(refreshToken);
 
@@ -102,9 +102,9 @@ public class UserServiceIpml implements UserService {
     @Override
     public Response<TokenResponse> refreshToken(RefreshTokenDto request) {
 
-        jwtGenerator.validateToken(request.refreshToken);
+        jwtUtils.validateToken(request.refreshToken);
 
-        Claims claims = jwtGenerator.decodeToken(request.refreshToken);
+        Claims claims = jwtUtils.decodeToken(request.refreshToken);
 
         AuthEntity account = authRepository.findByEmail(claims.getSubject()).orElseThrow();
 
@@ -117,8 +117,8 @@ public class UserServiceIpml implements UserService {
         TokenResponse token = new TokenResponse();
 
         if (claims.getExpiration().before(new Date())) {
-            String accessToken = jwtGenerator.generateAccessToken(claim);
-            String refreshToken = jwtGenerator.generateRefreshToken(claim);
+            String accessToken = jwtUtils.generateAccessToken(claim);
+            String refreshToken = jwtUtils.generateRefreshToken(claim);
 
             account.setRefreshToken(refreshToken);
 
@@ -130,7 +130,7 @@ public class UserServiceIpml implements UserService {
             return new Response<>(HttpStatus.OK.value(), token);
         }
 
-        String accessToken = jwtGenerator.generateAccessToken(claim);
+        String accessToken = jwtUtils.generateAccessToken(claim);
 
         token.refreshToken = account.getRefreshToken();
         token.accessToken = accessToken;

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class LogoutService implements LogoutHandler {
     private final AuthRepository authRepository;
 
-    private final JwtGenerator jwtGenerator;
+    private final JwtUtils jwtUtils;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response,
@@ -29,7 +29,7 @@ public class LogoutService implements LogoutHandler {
 
         jwt = authHeader.substring(7);
 
-        var decode = jwtGenerator.decodeToken(jwt);
+        var decode = jwtUtils.decodeToken(jwt);
 
 
         authRepository.findByEmail(decode.getSubject()).ifPresent(user -> {
