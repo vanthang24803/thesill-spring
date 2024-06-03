@@ -13,9 +13,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -24,6 +26,11 @@ import java.util.HashMap;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private  final LogoutService logoutService;
+
+    private final JWTAuthenticationFilter jwtAuthenticationFilter;
+
+    private final AuthService authService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -34,11 +41,22 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(auth ->
                         auth
-                                .requestMatchers(HttpMethod.GET, "api/auth/roles").permitAll()
-                                .requestMatchers(HttpMethod.POST, "api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/auth/roles").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .userDetailsService(authService)
+                .addFilterBefore(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
+                .logout(l -> l.logoutUrl("/api/auth/logout")
+                        .addLogoutHandler(logoutService)
+                        .logoutSuccessHandler(
+                                ((request, response, authentication) -> SecurityContextHolder.clearContext())
+                        )
+                )
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -48,7 +66,6 @@ public class SecurityConfig {
                             var responseBody = new HashMap<String, Object>();
                             responseBody.put("message", HttpStatus.UNAUTHORIZED.getReasonPhrase());
                             responseBody.put("status", HttpStatus.UNAUTHORIZED.value());
-
                             var mapper = new ObjectMapper();
                             response.getWriter().write(mapper.writeValueAsString(responseBody));
                         })
@@ -68,5 +85,5 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
+

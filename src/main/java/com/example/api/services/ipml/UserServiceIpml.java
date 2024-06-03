@@ -2,7 +2,6 @@ package com.example.api.services.ipml;
 
 import com.example.api.common.exceptions.BadRequestException;
 import com.example.api.common.exceptions.NotFoundException;
-import com.example.api.common.exceptions.UnauthorizedException;
 import com.example.api.common.mappers.Mapper;
 import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
@@ -101,7 +100,7 @@ public class UserServiceIpml implements UserService {
     }
 
     @Override
-    public Response<?> refreshToken(RefreshTokenDto request) {
+    public Response<TokenResponse> refreshToken(RefreshTokenDto request) {
 
         jwtGenerator.validateToken(request.refreshToken);
 
@@ -138,6 +137,5 @@ public class UserServiceIpml implements UserService {
 
         return new Response<>(HttpStatus.OK.value(), token);
     }
-
 
 }

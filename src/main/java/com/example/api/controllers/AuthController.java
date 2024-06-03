@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -45,11 +46,8 @@ public class AuthController {
     }
 
     @PostMapping(path = "refresh")
-    public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenDto token){
-        return  new ResponseEntity<>(userService.refreshToken(token), HttpStatus.OK);
+    public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenDto token) {
+        return new ResponseEntity<>(userService.refreshToken(token), HttpStatus.OK);
     }
-
-
-
 
 }

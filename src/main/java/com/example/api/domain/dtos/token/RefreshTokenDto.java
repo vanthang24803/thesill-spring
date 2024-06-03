@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RefreshTokenDto {
     @JsonProperty("refresh_token")
-    @NotBlank()
-    @NotEmpty()
+    @NotBlank(message = "Token not blank")
+    @NotEmpty(message = "Token not empty")
     public String refreshToken;
 }

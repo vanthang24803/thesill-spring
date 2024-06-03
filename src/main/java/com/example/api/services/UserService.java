@@ -12,6 +12,5 @@ public interface UserService {
 
     Response<TokenResponse> login(LoginDto loginDto);
 
-    Response<?> refreshToken(RefreshTokenDto refreshToken);
-
+    Response<TokenResponse> refreshToken(RefreshTokenDto refreshToken);
 }
