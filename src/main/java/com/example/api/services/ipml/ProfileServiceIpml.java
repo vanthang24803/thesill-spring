@@ -51,8 +51,7 @@ public class ProfileServiceIpml implements ProfileService {
         );
 
         try {
-            String avatar = uploadService.uploadFile(file);
-
+            String avatar = uploadService.upload(file).getUrl();
             user.setEmail(update.getEmail());
             user.setFirstName(update.getFirstName());
             user.setLastName(update.getLastName());
