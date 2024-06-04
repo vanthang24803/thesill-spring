@@ -1,7 +1,7 @@
 package com.example.api.security;
 
 import com.example.api.domain.dtos.auth.RoleDto;
-import com.example.api.domain.dtos.auth.UserDto;
+import com.example.api.domain.dtos.auth.UserResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -24,14 +24,14 @@ public class JwtUtils {
     private static final SecretKey secretKey =
             Keys.hmacShaKeyFor(System.getenv("SECRET_KEY").getBytes(StandardCharsets.UTF_8));
 
-    public String generateAccessToken(UserDto account) {
+    public String generateAccessToken(UserResponse account) {
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + Constants.AC_EXP * 1000);
 
         return generateToken(account, currentDate, expireDate);
     }
 
-    public String generateRefreshToken(UserDto account) {
+    public String generateRefreshToken(UserResponse account) {
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + Constants.RF_EXP * 1000);
 
@@ -67,7 +67,7 @@ public class JwtUtils {
                 .getBody();
     }
 
-    private String generateToken(UserDto account, Date currentDate, Date expireDate) {
+    private String generateToken(UserResponse account, Date currentDate, Date expireDate) {
 
         return Jwts.builder()
                 .setSubject(account.getEmail())

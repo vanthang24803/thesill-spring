@@ -2,7 +2,7 @@ package com.example.api.services.ipml;
 
 import com.example.api.common.exceptions.UnauthorizedException;
 import com.example.api.common.mappers.Mapper;
-import com.example.api.domain.dtos.auth.UserDto;
+import com.example.api.domain.dtos.auth.UserResponse;
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.dtos.profile.UpdatePasswordDto;
 import com.example.api.domain.dtos.profile.UpdateProfileDto;
@@ -24,12 +24,12 @@ import java.security.Principal;
 public class ProfileServiceIpml implements ProfileService {
 
     private final AuthRepository authRepository;
-    private final Mapper<AuthEntity, UserDto> userMapper;
+    private final Mapper<AuthEntity, UserResponse> userMapper;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Response<UserDto> findProfile(Principal principal) {
+    public Response<UserResponse> findProfile(Principal principal) {
 
         String email = principal.getName();
 
@@ -37,14 +37,14 @@ public class ProfileServiceIpml implements ProfileService {
                 UnauthorizedException::new
         );
 
-        UserDto response = userMapper.mapTo(user);
+        UserResponse response = userMapper.mapTo(user);
 
         return new Response<>(HttpStatus.OK.value(), response);
     }
 
     @Override
-    public Response<UserDto> update(Principal principal, UpdateProfileDto update,
-                                    MultipartFile file) {
+    public Response<UserResponse> update(Principal principal, UpdateProfileDto update,
+                                         MultipartFile file) {
 
         var user = authRepository.findByEmail(principal.getName()).orElseThrow(
                 UnauthorizedException::new
@@ -63,7 +63,7 @@ public class ProfileServiceIpml implements ProfileService {
 
         authRepository.save(user);
 
-        UserDto response = userMapper.mapTo(user);
+        UserResponse response = userMapper.mapTo(user);
 
         return new Response<>(HttpStatus.OK.value(), response);
     }

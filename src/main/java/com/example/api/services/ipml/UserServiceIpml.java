@@ -5,7 +5,7 @@ import com.example.api.common.exceptions.NotFoundException;
 import com.example.api.common.mappers.Mapper;
 import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
-import com.example.api.domain.dtos.auth.UserDto;
+import com.example.api.domain.dtos.auth.UserResponse;
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.dtos.token.RefreshTokenDto;
 import com.example.api.domain.dtos.token.TokenResponse;
@@ -35,12 +35,12 @@ public class UserServiceIpml implements UserService {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final Mapper<AuthEntity, UserDto> userMapper;
+    private final Mapper<AuthEntity, UserResponse> userMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
     @Override
-    public Response<UserDto> register(RegisterDto registerDto) {
+    public Response<UserResponse> register(RegisterDto registerDto) {
         if (authRepository.existsByEmail(registerDto.getEmail())) {
             throw new BadRequestException("Email Taken!");
         }
@@ -61,7 +61,7 @@ public class UserServiceIpml implements UserService {
 
         auth = authRepository.save(auth);
 
-        UserDto response = userMapper.mapTo(auth);
+        UserResponse response = userMapper.mapTo(auth);
 
         return new Response<>(HttpStatus.CREATED.value(), response);
     }
@@ -82,7 +82,7 @@ public class UserServiceIpml implements UserService {
 
         AuthEntity account = authRepository.findByEmail(email).orElseThrow();
 
-        UserDto claim = userMapper.mapTo(account);
+        UserResponse claim = userMapper.mapTo(account);
 
         String accessToken = jwtUtils.generateAccessToken(claim);
         String refreshToken = jwtUtils.generateRefreshToken(claim);
@@ -108,7 +108,7 @@ public class UserServiceIpml implements UserService {
 
         AuthEntity account = authRepository.findByEmail(claims.getSubject()).orElseThrow();
 
-        UserDto claim = userMapper.mapTo(account);
+        UserResponse claim = userMapper.mapTo(account);
 
         if (!account.getRefreshToken().equals(request.refreshToken)) {
             throw new NotFoundException("Refresh token not found");

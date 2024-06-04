@@ -1,6 +1,6 @@
 package com.example.api.controllers;
 
-import com.example.api.domain.dtos.auth.UserDto;
+import com.example.api.domain.dtos.auth.UserResponse;
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.dtos.profile.UpdatePasswordDto;
 import com.example.api.domain.dtos.profile.UpdateProfileDto;
@@ -24,12 +24,12 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping()
-    public ResponseEntity<Response<UserDto>> getProfile(Principal principal) {
+    public ResponseEntity<Response<UserResponse>> getProfile(Principal principal) {
         return new ResponseEntity<>(profileService.findProfile(principal), HttpStatus.OK);
     }
 
     @PutMapping()
-    public ResponseEntity<Response<UserDto>> update(
+    public ResponseEntity<Response<UserResponse>> update(
             Principal principal,
             @ModelAttribute @Valid UpdateProfileDto profile,
             @RequestParam("avatar") MultipartFile file) {

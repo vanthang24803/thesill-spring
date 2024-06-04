@@ -2,7 +2,7 @@ package com.example.api.controllers;
 
 import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
-import com.example.api.domain.dtos.auth.UserDto;
+import com.example.api.domain.dtos.auth.UserResponse;
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.dtos.token.RefreshTokenDto;
 import com.example.api.domain.dtos.token.TokenResponse;
@@ -36,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "register")
-    public ResponseEntity<Response<UserDto>> register(@RequestBody @Valid RegisterDto register) {
+    public ResponseEntity<Response<UserResponse>> register(@RequestBody @Valid RegisterDto register) {
         return new ResponseEntity<>(userService.register(register), HttpStatus.CREATED);
     }
 
