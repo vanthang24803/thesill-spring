@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.entities.RoleEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceIpml implements RoleService {
+public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override

@@ -39,18 +39,18 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> findOne(@PathVariable("id") UUID id) {
+    public ResponseEntity<Response<CategoryResponse>> findOne(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(categoryService.findOne(id));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable("id") UUID id,
+    public ResponseEntity<Response<CategoryResponse>> update(@PathVariable("id") UUID id,
                                     @RequestBody @Valid CategoryRequest request) {
         return ResponseEntity.ok(categoryService.update(id, request));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
         categoryService.delete(id);
         return ResponseEntity.ok().build();
     }

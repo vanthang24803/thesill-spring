@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.example.api.common.exceptions.NotFoundException;
 import com.example.api.domain.dtos.message.Response;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BillboardServiceIpml implements BillboardService {
+public class BillboardServiceImpl implements BillboardService {
     private final UploadService uploadService;
     private final BillboardRepository billboardRepository;
 

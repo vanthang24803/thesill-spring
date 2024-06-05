@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.example.api.common.exceptions.BadRequestException;
 import com.example.api.common.exceptions.NotFoundException;
@@ -31,7 +31,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceIpml implements UserService {
+public class UserServiceImpl implements UserService {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -44,6 +44,7 @@ public class UserServiceIpml implements UserService {
         if (authRepository.existsByEmail(registerDto.getEmail())) {
             throw new BadRequestException("Email Taken!");
         }
+
 
         String hashPassword = passwordEncoder.encode(registerDto.getPassword());
 

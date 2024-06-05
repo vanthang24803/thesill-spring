@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.example.api.common.exceptions.UnauthorizedException;
 import com.example.api.common.mappers.Mapper;
@@ -21,7 +21,7 @@ import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor
-public class ProfileServiceIpml implements ProfileService {
+public class ProfileServiceImpl implements ProfileService {
 
     private final AuthRepository authRepository;
     private final Mapper<AuthEntity, UserResponse> userMapper;

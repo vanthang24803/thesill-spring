@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.example.api.domain.dtos.cloudinary.CloudinaryResponse;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UploadServiceIpml implements UploadService {
+public class UploadServiceImpl implements UploadService {
 
     private final Cloudinary cloudinary;
 
@@ -35,8 +35,7 @@ public class UploadServiceIpml implements UploadService {
     @Override
     public void delete(String publicId) {
         try {
-            Map<?, ?> result = cloudinary.uploader().destroy(publicId, null);
-            result.get("result");
+            cloudinary.uploader().destroy(publicId, null);
         } catch (Exception exception) {
             throw new FunctorException("Delete failed!");
         }

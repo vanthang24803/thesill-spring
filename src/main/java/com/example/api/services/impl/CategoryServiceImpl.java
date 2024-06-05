@@ -1,4 +1,4 @@
-package com.example.api.services.ipml;
+package com.example.api.services.impl;
 
 import com.example.api.common.exceptions.NotFoundException;
 import com.example.api.common.mappers.Mapper;
@@ -19,11 +19,12 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryServiceIpml implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
     private final Mapper<CategoryEntity, CategoryResponse> mapper;
+    private static final String CATEGORY_NOT_FOUND = "Category not found!";
 
     @Override
     public Response<CategoryResponse> save(CategoryRequest request) {
@@ -68,7 +69,7 @@ public class CategoryServiceIpml implements CategoryService {
     @Override
     public Response<CategoryResponse> findOne(UUID id) {
         var category = categoryRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Category not found!")
+                () -> new NotFoundException(CATEGORY_NOT_FOUND)
         );
 
         var result = mapper.mapTo(category);
@@ -79,7 +80,7 @@ public class CategoryServiceIpml implements CategoryService {
     @Override
     public Response<CategoryResponse> update(UUID id, CategoryRequest request) {
         var category = categoryRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Category not found!")
+                () -> new NotFoundException(CATEGORY_NOT_FOUND)
         );
 
         category.setName(request.getName());
@@ -94,7 +95,7 @@ public class CategoryServiceIpml implements CategoryService {
     @Override
     public void delete(UUID id) {
         var category = categoryRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Category not found!")
+                () -> new NotFoundException(CATEGORY_NOT_FOUND)
         );
         categoryRepository.delete(category);
     }
