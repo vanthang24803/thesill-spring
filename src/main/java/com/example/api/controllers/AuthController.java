@@ -6,18 +6,14 @@ import com.example.api.domain.dtos.auth.UserResponse;
 import com.example.api.domain.dtos.message.Response;
 import com.example.api.domain.dtos.token.RefreshTokenDto;
 import com.example.api.domain.dtos.token.TokenResponse;
-import com.example.api.services.RoleService;
-import com.example.api.domain.entities.RoleEntity;
 import com.example.api.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,15 +21,7 @@ import java.util.List;
 @RequestMapping("api/auth")
 public class AuthController {
 
-    private final RoleService roleService;
     private final UserService userService;
-
-    @GetMapping(path = "/roles")
-    @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Response<List<RoleEntity>>> seedRoles() {
-        return new ResponseEntity<>(roleService.createSeedRole(), HttpStatus.OK);
-    }
 
     @PostMapping(path = "register")
     public ResponseEntity<Response<UserResponse>> register(@RequestBody @Valid RegisterDto register) {

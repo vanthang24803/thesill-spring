@@ -11,7 +11,7 @@ public interface CategoryService {
 
     Response<CategoryResponse> save(CategoryRequest request);
 
-    Response<List<CategoryResponse>> createSeed();
+   void createSeed();
 
     Response<List<CategoryResponse>> findAll();
 

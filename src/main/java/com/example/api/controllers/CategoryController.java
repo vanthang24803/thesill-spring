@@ -21,11 +21,6 @@ import java.util.UUID;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("seeds")
-    public ResponseEntity<Response<List<CategoryResponse>>> seeds() {
-        return ResponseEntity.ok(categoryService.createSeed());
-    }
-
     @PostMapping()
     public ResponseEntity<Response<CategoryResponse>> create(
             @RequestBody @Valid CategoryRequest request

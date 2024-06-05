@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,16 +20,15 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Response<List<RoleEntity>> createSeedRole() {
+    public void createSeedRole() {
         List<RoleEnum> roles = Arrays.asList(RoleEnum.ADMIN, RoleEnum.MANAGER, RoleEnum.CUSTOMER);
-        List<RoleEntity> result = new ArrayList<>();
 
         for (RoleEnum role : roles) {
-            RoleEntity roleEntity = save(role).getResult();
-            result.add(roleEntity);
+            if (roleRepository.findByName(role).isEmpty()) {
+                this.save(role);
+            }
         }
 
-        return new Response<>(HttpStatus.OK.value(), result);
     }
 
     @Override

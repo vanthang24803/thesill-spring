@@ -38,8 +38,8 @@ public class ProfileController {
     }
 
     @PutMapping(path = "password")
-    public ResponseEntity<?> updatePassword(Principal principal,
-                                            @RequestBody @Valid UpdatePasswordDto updatePassword) {
+    public ResponseEntity<Response<String>> updatePassword(Principal principal,
+                                                           @RequestBody @Valid UpdatePasswordDto updatePassword) {
         return new ResponseEntity<>(profileService.updatePassword(principal, updatePassword), HttpStatus.OK);
     }
 }

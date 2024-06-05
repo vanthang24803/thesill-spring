@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -40,20 +39,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Response<List<CategoryResponse>> createSeed() {
-
-        ArrayList<CategoryResponse> categories = new ArrayList<>();
-
+    public void createSeed() {
         Set<String> seeds = seedCategory();
 
         for (String seed : seeds) {
-            CategoryEntity category = new CategoryEntity();
-            category.setName(seed);
-            categoryRepository.save(category);
-            var response = mapper.mapTo(category);
-            categories.add(response);
+            if (categoryRepository.findByName(seed).isEmpty()) {
+                CategoryEntity category = new CategoryEntity();
+                category.setName(seed);
+                categoryRepository.save(category);
+            }
         }
-        return new Response<>(HttpStatus.OK.value(), categories);
     }
 
     @Override
