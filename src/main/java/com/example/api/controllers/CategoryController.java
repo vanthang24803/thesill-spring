@@ -2,7 +2,7 @@ package com.example.api.controllers;
 
 import com.example.api.domain.dtos.category.CategoryRequest;
 import com.example.api.domain.dtos.category.CategoryResponse;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.services.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

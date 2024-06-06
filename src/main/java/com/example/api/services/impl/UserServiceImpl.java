@@ -6,7 +6,7 @@ import com.example.api.common.mappers.Mapper;
 import com.example.api.domain.dtos.auth.LoginDto;
 import com.example.api.domain.dtos.auth.RegisterDto;
 import com.example.api.domain.dtos.auth.UserResponse;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.token.RefreshTokenDto;
 import com.example.api.domain.dtos.token.TokenResponse;
 import com.example.api.domain.entities.AuthEntity;

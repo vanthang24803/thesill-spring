@@ -1,7 +1,7 @@
 package com.example.api.controllers;
 
 import com.example.api.common.helpers.ProductQuery;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.product.*;
 import com.example.api.services.ProductService;
 import jakarta.validation.Valid;
@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Response<ProductResponse>> findOne(
+    public ResponseEntity<Response<ProductDetailResponse>> findOne(
             @PathVariable("id") String id
     ) {
         return ResponseEntity.ok(productService.findOne(id));

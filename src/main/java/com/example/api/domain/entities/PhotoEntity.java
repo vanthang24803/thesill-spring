@@ -3,7 +3,10 @@ package com.example.api.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "photos")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PhotoEntity {
     @Id
     @Column(name = "id", nullable = false)

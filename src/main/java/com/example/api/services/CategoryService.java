@@ -2,7 +2,7 @@ package com.example.api.services;
 
 import com.example.api.domain.dtos.category.CategoryRequest;
 import com.example.api.domain.dtos.category.CategoryResponse;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 
 import java.util.List;
 import java.util.UUID;

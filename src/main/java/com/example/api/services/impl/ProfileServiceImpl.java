@@ -3,7 +3,7 @@ package com.example.api.services.impl;
 import com.example.api.common.exceptions.UnauthorizedException;
 import com.example.api.common.mappers.Mapper;
 import com.example.api.domain.dtos.auth.UserResponse;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.profile.UpdatePasswordDto;
 import com.example.api.domain.dtos.profile.UpdateProfileDto;
 import com.example.api.domain.entities.AuthEntity;

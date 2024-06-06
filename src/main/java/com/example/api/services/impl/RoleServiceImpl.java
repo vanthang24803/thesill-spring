@@ -1,6 +1,6 @@
 package com.example.api.services.impl;
 
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.entities.RoleEntity;
 import com.example.api.domain.enums.RoleEnum;
 import com.example.api.common.exceptions.BadRequestException;

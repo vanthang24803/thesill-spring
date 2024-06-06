@@ -1,7 +1,7 @@
 package com.example.api.services.impl;
 
 import com.example.api.common.exceptions.NotFoundException;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.entities.BillboardEntity;
 import com.example.api.repositories.BillboardRepository;
 import com.example.api.services.BillboardService;

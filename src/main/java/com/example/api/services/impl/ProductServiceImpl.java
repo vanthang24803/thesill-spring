@@ -3,7 +3,8 @@ package com.example.api.services.impl;
 import com.example.api.common.exceptions.NotFoundException;
 import com.example.api.common.helpers.ProductQuery;
 import com.example.api.common.mappers.Mapper;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
+import com.example.api.common.messages.NotFoundMessage;
 import com.example.api.domain.dtos.product.*;
 import com.example.api.domain.entities.CategoryEntity;
 import com.example.api.domain.entities.ProductEntity;
@@ -33,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final UploadService uploadService;
     private final Mapper<ProductEntity, ProductResponse> mapper;
+    private final Mapper<ProductEntity, ProductDetailResponse> mapperDetail;
 
     @Override
     public Response<ProductResponse> save(CreateProductRequest request, MultipartFile file) {
@@ -107,10 +109,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response<ProductResponse> findOne(String id) {
+    public Response<ProductDetailResponse> findOne(String id) {
         var product = this.findProductThrowException(id);
 
-        var result = mapper.mapTo(product);
+        var result = mapperDetail.mapTo(product);
 
         return new Response<>(HttpStatus.OK.value(), result);
     }
@@ -153,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductEntity findProductThrowException(String id) {
         return productRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Product not found!")
+                () -> new NotFoundException(NotFoundMessage.PRODUCT_NOT_FOUND)
         );
     }
 

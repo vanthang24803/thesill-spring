@@ -1,4 +1,4 @@
-package com.example.api.domain.dtos.message;
+package com.example.api.common.helpers;
 
 import lombok.*;
 

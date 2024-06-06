@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity , String> {
     Optional<ProductEntity> findById(String id);
 
+    boolean existsById(String id);
+
     List<ProductEntity> findByNameContainingIgnoreCase(String name);
 }

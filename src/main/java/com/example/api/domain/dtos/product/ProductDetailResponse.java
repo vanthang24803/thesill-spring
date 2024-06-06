@@ -1,6 +1,7 @@
 package com.example.api.domain.dtos.product;
 
 import com.example.api.domain.dtos.category.CategoryResponse;
+import com.example.api.domain.dtos.photo.PhotoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductResponse {
+public class ProductDetailResponse {
     private String id;
     private String name;
+    private String thumbnail;
+    private String description;
+    private String guide;
     private Boolean published;
     private List<CategoryResponse> categories = new ArrayList<>();
+    private List<PhotoResponse> photos = new ArrayList<>();
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

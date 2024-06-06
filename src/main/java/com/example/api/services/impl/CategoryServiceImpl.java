@@ -4,7 +4,7 @@ import com.example.api.common.exceptions.NotFoundException;
 import com.example.api.common.mappers.Mapper;
 import com.example.api.domain.dtos.category.CategoryRequest;
 import com.example.api.domain.dtos.category.CategoryResponse;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.entities.CategoryEntity;
 import com.example.api.repositories.CategoryRepository;
 import com.example.api.services.CategoryService;

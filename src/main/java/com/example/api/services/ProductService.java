@@ -1,7 +1,7 @@
 package com.example.api.services;
 
 import com.example.api.common.helpers.ProductQuery;
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.product.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +13,7 @@ public interface ProductService {
 
     Response<ProductResponse> update(String id, UpdateProductRequest update);
 
-    Response<ProductResponse> findOne(String id);
+    Response<ProductDetailResponse> findOne(String id);
 
     SearchResponse search(String name);
 

@@ -1,6 +1,6 @@
 package com.example.api.controllers;
 
-import com.example.api.domain.dtos.message.Response;
+import com.example.api.common.helpers.Response;
 import com.example.api.domain.entities.BillboardEntity;
 import com.example.api.services.BillboardService;
 import lombok.RequiredArgsConstructor;
