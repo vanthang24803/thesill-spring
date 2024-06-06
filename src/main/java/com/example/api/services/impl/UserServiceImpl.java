@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("Email Taken!");
         }
 
-
         String hashPassword = passwordEncoder.encode(registerDto.getPassword());
 
         RoleEntity role = roleRepository.findByName(RoleEnum.CUSTOMER)

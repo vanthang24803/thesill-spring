@@ -1,12 +1,16 @@
 package com.example.api.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Index;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,8 +22,14 @@ public class CategoryEntity {
     @Column(name = "id")
     private UUID id;
 
+
+    @Index(name = "category_name")
     @Column(name = "category_name", unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    private List<ProductEntity> products = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")

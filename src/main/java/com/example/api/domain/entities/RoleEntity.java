@@ -22,7 +22,7 @@ public class RoleEntity {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_name", length = 255, nullable = false)
+    @Column(name = "role_name", nullable = false)
     private RoleEnum name;
 
     @ManyToMany(mappedBy = "roles")

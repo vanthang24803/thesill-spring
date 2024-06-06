@@ -19,25 +19,25 @@ public class AuthEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "first_name", nullable = false, length = 255)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 255)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password", columnDefinition = "TEXT", nullable = false)
     private String password;
 
-    @Column(name = "avatar", columnDefinition = "TEXT", nullable = true)
+    @Column(name = "avatar", columnDefinition = "TEXT")
     private String avatar;
 
     @Column(name = "verify_email", nullable = false)
     private Boolean verify = false;
 
-    @Column(name = "refresh_token", nullable = true,  columnDefinition = "TEXT")
+    @Column(name = "refresh_token", columnDefinition = "TEXT")
     private String refreshToken;
 
     @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
