@@ -38,7 +38,7 @@ public class ProductEntity {
     @Column(name = "published")
     private Boolean published;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -46,7 +46,7 @@ public class ProductEntity {
     )
     private List<CategoryEntity> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<PhotoEntity> photos = new ArrayList<>();
 
     @CreationTimestamp

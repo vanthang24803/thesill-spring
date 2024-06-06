@@ -1,8 +1,8 @@
 package com.example.api.controllers;
 
+import com.example.api.common.helpers.ProductQuery;
 import com.example.api.domain.dtos.message.Response;
-import com.example.api.domain.dtos.product.CreateProductRequest;
-import com.example.api.domain.dtos.product.ProductResponse;
+import com.example.api.domain.dtos.product.*;
 import com.example.api.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +23,41 @@ public class ProductController {
             @RequestParam("thumbnail") MultipartFile file
     ) {
         return new ResponseEntity<>(productService.save(request, file), HttpStatus.CREATED);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ProductFilterResponse> findAll(
+            @ModelAttribute ProductQuery query
+    ) {
+        return ResponseEntity.ok(productService.findAll(query));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Response<ProductResponse>> findOne(
+            @PathVariable("id") String id
+    ) {
+        return ResponseEntity.ok(productService.findOne(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<SearchResponse> search(
+            @RequestParam("q") String name
+    ) {
+        return ResponseEntity.ok(productService.search(name));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Response<ProductResponse>> update(
+            @PathVariable("id") String id,
+            @RequestBody @Valid UpdateProductRequest request) {
+        return ResponseEntity.ok(productService.update(id, request));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> remove(
+            @PathVariable("id") String id
+    ) {
+        productService.remove(id);
+        return ResponseEntity.ok().build();
     }
 }
