@@ -11,6 +11,7 @@ import com.example.api.repositories.ProductRepository;
 import com.example.api.services.PhotoService;
 import com.example.api.services.UploadService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PhotoServiceIpml implements PhotoService {
 
     private final ProductRepository productRepository;
@@ -30,7 +32,9 @@ public class PhotoServiceIpml implements PhotoService {
 
     @Override
     public Response<List<PhotoEntity>> save(String id, List<MultipartFile> files) {
-        var product = productRepository.findById(id).orElseThrow();
+        var product = productRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(NotFoundMessage.PRODUCT_NOT_FOUND)
+        );
 
         List<PhotoEntity> photos = new ArrayList<>();
 
@@ -60,13 +64,15 @@ public class PhotoServiceIpml implements PhotoService {
 
     @Override
     public Response<List<PhotoEntity>> findAll(String id) {
+        if (!productRepository.existsById(id)) {
+            throw new NotFoundException(NotFoundMessage.PRODUCT_NOT_FOUND);
+        }
         var photos = photoRepository.findAllByProductId(id);
-        return new Response<>(HttpStatus.CREATED.value(), photos);
+        return new Response<>(HttpStatus.OK.value(), photos);
     }
 
     @Override
     public void remove(String productId, String id) {
-
         if (!productRepository.existsById(id)) {
             throw new NotFoundException(NotFoundMessage.PRODUCT_NOT_FOUND);
         }

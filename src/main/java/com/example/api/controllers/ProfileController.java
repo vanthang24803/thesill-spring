@@ -5,6 +5,7 @@ import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.profile.UpdatePasswordDto;
 import com.example.api.domain.dtos.profile.UpdateProfileDto;
 import com.example.api.services.ProfileService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth/profile")
 @Slf4j
+@Tag(name = "Profile", description = "Endpoints for profile manager")
 public class ProfileController {
 
     private final ProfileService profileService;

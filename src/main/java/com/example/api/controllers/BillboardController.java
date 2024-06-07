@@ -3,6 +3,7 @@ package com.example.api.controllers;
 import com.example.api.common.helpers.Response;
 import com.example.api.domain.entities.BillboardEntity;
 import com.example.api.services.BillboardService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/billboards")
 @RequiredArgsConstructor
+@Tag(name = "Billboard", description = "Endpoints for billboard manager")
 public class BillboardController {
     private final BillboardService billboardService;
 

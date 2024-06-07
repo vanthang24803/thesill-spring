@@ -4,6 +4,7 @@ import com.example.api.domain.dtos.category.CategoryRequest;
 import com.example.api.domain.dtos.category.CategoryResponse;
 import com.example.api.common.helpers.Response;
 import com.example.api.services.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @RequestMapping("api/categories")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Category", description = "Endpoints for category manager")
 public class CategoryController {
     private final CategoryService categoryService;
 

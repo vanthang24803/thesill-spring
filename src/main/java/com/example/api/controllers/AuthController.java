@@ -7,6 +7,7 @@ import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.token.RefreshTokenDto;
 import com.example.api.domain.dtos.token.TokenResponse;
 import com.example.api.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("api/auth")
+@Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthController {
 
     private final UserService userService;

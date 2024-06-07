@@ -4,6 +4,7 @@ import com.example.api.common.helpers.ProductQuery;
 import com.example.api.common.helpers.Response;
 import com.example.api.domain.dtos.product.*;
 import com.example.api.services.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("api/products")
 @RequiredArgsConstructor
+@Tag(name = "Product", description = "Endpoints for product manager")
 public class ProductController {
     private final ProductService productService;
 
