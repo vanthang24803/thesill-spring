@@ -17,6 +17,10 @@ public class CreateProductRequest {
     @Length(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
     private String name;
     private List<CategoryRequest> categories = new ArrayList<>();
+
+    @NotEmpty(message = "Tag name is required")
+    @Length(min = 1, max = 255, message = "Tag name must be between 1 and 255 characters")
+    private String tag;
 }
 
 

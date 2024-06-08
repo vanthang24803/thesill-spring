@@ -17,6 +17,7 @@ import java.util.List;
 public class ProductResponse {
     private String id;
     private String name;
+    private String thumbnail;
     private Boolean published;
     private List<CategoryResponse> categories = new ArrayList<>();
     private LocalDateTime createdAt;

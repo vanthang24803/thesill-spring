@@ -10,6 +10,7 @@ import com.example.api.domain.entities.CategoryEntity;
 import com.example.api.domain.entities.ProductEntity;
 import com.example.api.repositories.CategoryRepository;
 import com.example.api.repositories.ProductRepository;
+import com.example.api.repositories.TagRepository;
 import com.example.api.services.ProductService;
 import com.example.api.services.UploadService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+    private final TagRepository tagRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
     private final UploadService uploadService;
@@ -38,6 +40,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Response<ProductResponse> save(CreateProductRequest request, MultipartFile file) {
+
+        var tagName = tagRepository.findByName(request.getTag()).orElseThrow(
+                () -> new NotFoundException(NotFoundMessage.TAG_NOT_FOUND)
+        );
 
         List<CategoryEntity> categories = new ArrayList<>();
 
@@ -52,6 +58,7 @@ public class ProductServiceImpl implements ProductService {
                 .categories(categories)
                 .createdAt(LocalDateTime.now())
                 .published(false)
+                .tag(tagName)
                 .build();
 
         try {
@@ -73,9 +80,9 @@ public class ProductServiceImpl implements ProductService {
     public ProductFilterResponse findAll(ProductQuery query) {
         int page = query.getPage();
         int limit = query.getLimit();
-        String sort = query.getSort();
+        String order = query.getOrder();
 
-        var products = this.pagination(page, limit, sort);
+        var products = this.pagination(page, limit, order);
 
         List<ProductResponse> response = products
                 .getContent()
@@ -142,9 +149,9 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
-    private Page<ProductEntity> pagination(int page, int limit, String sort) {
+    private Page<ProductEntity> pagination(int page, int limit, String order) {
         Page<ProductEntity> products;
-        if ("asc".equalsIgnoreCase(sort)) {
+        if ("asc".equalsIgnoreCase(order)) {
             products = productRepository.findAll(PageRequest.of(page - 1, limit, Sort.by("createdAt").descending()));
         } else {
             products = productRepository.findAll(PageRequest.of(page - 1, limit));

@@ -46,8 +46,16 @@ public class ProductEntity {
     )
     private List<CategoryEntity> categories = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    private TagEntity tag;
+
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<PhotoEntity> photos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<OptionEntity> options = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")
