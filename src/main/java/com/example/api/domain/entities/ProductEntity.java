@@ -50,7 +50,6 @@ public class ProductEntity {
     @JoinColumn(name = "tag_id", referencedColumnName = "id")
     private TagEntity tag;
 
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<PhotoEntity> photos = new ArrayList<>();
 
