@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface OptionRepository extends JpaRepository<OptionEntity, UUID> {
     List<OptionEntity> findAllByProductId(String productId);
+
 }

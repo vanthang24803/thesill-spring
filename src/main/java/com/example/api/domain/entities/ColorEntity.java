@@ -30,6 +30,9 @@ public class ColorEntity {
     @Column(name = "color_value")
     private String value;
 
+    @Column(name = "color_quantity")
+    private Long quantity;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "option_id", referencedColumnName = "id")

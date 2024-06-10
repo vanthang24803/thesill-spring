@@ -40,7 +40,7 @@ public class OptionEntity {
     private Integer sale;
 
     @OneToMany(mappedBy = "option", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<ColorEntity> color = new ArrayList<>();
+    private List<ColorEntity> colors = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne

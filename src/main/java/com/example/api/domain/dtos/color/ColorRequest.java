@@ -1,21 +1,19 @@
 package com.example.api.domain.dtos.color;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ColorResponse {
-    private UUID id;
+public class ColorRequest {
+    @NotNull(message = "Name is required")
     private String name;
+    @NotNull(message = "Value is required")
     private String value;
     private Long quantity;
-    private LocalDateTime createdAt;
 }
